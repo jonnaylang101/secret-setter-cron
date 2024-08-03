@@ -15,6 +15,6 @@ spec:
       containers:
       - name: consumer
         imagePullPolicy: Always
-        image: jonnaymt/ssc-consumer:latest
+        image: jonnaymt/ssc-consumer:1
         ports:
         - containerPort: 80
