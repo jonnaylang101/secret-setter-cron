@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: CronJob
+metadata:
+  name: producer
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: producer
+            image: jonnaymt/ssc-producer
+            imagePullPolicy: Always
+          restartPolicy: never
