@@ -4,6 +4,7 @@ metadata:
   name: producer
 spec:
   schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
