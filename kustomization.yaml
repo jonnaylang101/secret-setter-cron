@@ -1,8 +1,4 @@
 resources:
 - ./consumer/
 - ./producer/
-
-secretGenerator:
-- name: producer-secret
-  literals:
-  - username=nardyfunknuckle
+- ./secret/
