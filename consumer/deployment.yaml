@@ -18,3 +18,13 @@ spec:
         image: jonnaymt/ssc-consumer:0.1.2
         ports:
         - containerPort: 80
+        env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: producer-secret
+              key: username
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

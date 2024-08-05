@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"time"
 
 	"github.com/sirupsen/logrus"
 
@@ -14,6 +15,8 @@ func main() {
 	// Get K8s sercret and log it
 	logger := logrus.New()
 	logger.Info("+++ Consumer started +++")
+	ticker := time.NewTicker(20 * time.Second)
+	count := 0
 
 	config, err := rest.InClusterConfig()
 	if err != nil {
@@ -29,19 +32,22 @@ func main() {
 		return
 	}
 
-	secret, err := clientset.CoreV1().Secrets("default").Get(context.Background(), "producer-secret-8d7chtfcmb", v1.GetOptions{})
-	if err != nil {
-		logger.Error("Error getting secret: ", err)
-		return
+	for range ticker.C {
+		count++
+		logger.Infof("+++ Consumer tick %d +++", count)
+
+		secret, err := clientset.CoreV1().Secrets("default").Get(context.Background(), "producer-secret", v1.GetOptions{})
+		if err != nil {
+			logger.Error("Error getting secret: ", err)
+			return
+		}
+
+		byt, ok := secret.Data["username"]
+		if !ok {
+			logger.Error("Error getting username from secret")
+			return
+		}
+
+		logger.Info("Username: ", string(byt))
 	}
-
-	logger.Infof("Secret: %+v", secret)
-
-	byt, ok := secret.Data["username"]
-	if !ok {
-		logger.Error("Error getting username from secret")
-		return
-	}
-
-	logger.Info("Username: ", string(byt))
 }
