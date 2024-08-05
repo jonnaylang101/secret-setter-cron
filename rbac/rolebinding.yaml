@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: default-update-secrets
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: default
+  apiGroup: ""
+  namespace: default
+roleRef:
+  kind: Role
+  name: update-secrets
+  apiGroup: ""

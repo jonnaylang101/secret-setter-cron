@@ -2,3 +2,4 @@ resources:
 - ./consumer/
 - ./producer/
 - ./secret/
+- ./rbac/
