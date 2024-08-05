@@ -17,6 +17,7 @@ func main() {
 	logger := logrus.New()
 	logger.Info("+++ Producer started +++")
 
+	setSecret(logger)
 }
 
 func setSecret(logger *logrus.Logger) {
